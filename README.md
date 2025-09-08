@@ -9,7 +9,7 @@ ICS supports both single-image and bulk parallel processing via Step Functions' 
 
 ## 🏗️ Solution Architecture
 
-
+![Solution Architecture](solution-arch-final.png)
 
 ---
 
@@ -99,3 +99,14 @@ The **Image Classification Service (ICS)** is designed for organizations that ne
 | **Python**             | Used for Lambda functions and visualization scripts.                    |
 | **Matplotlib & PIL**   | Used for visualizing inference results and decoded images.              |
 | **jsonlines**          | Parses SageMaker Model Monitor `.jsonl` capture files.                  |
+
+![execution breakdown](step-function-execution-breakdown-bulk-items.png)
+
+![success execution](step-function-execution-success-sns-setup-single-item.png)
+
+![failure execution](step-function-execution-failure-sns-notification-bulk-items.png)
+
+
+
+### Inference Example
+![Inference](inference-viz.png)
