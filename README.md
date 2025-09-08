@@ -100,13 +100,16 @@ The **Image Classification Service (ICS)** is designed for organizations that ne
 | **Matplotlib & PIL**   | Used for visualizing inference results and decoded images.              |
 | **jsonlines**          | Parses SageMaker Model Monitor `.jsonl` capture files.                  |
 
+### Execution Breakdown
+
 ![execution breakdown](step-function-execution-breakdown-bulk-items.png)
 
-![success execution](step-function-execution-success-sns-setup-single-item.png)
+### Successful Execution
 
+![alt text](step-function-execution-success-sns-setup-bulk-items.png)
+
+### Failed Execution
 ![failure execution](step-function-execution-failure-sns-notification-bulk-items.png)
-
-
 
 ### Inference Example
 ![Inference](inference-viz.png)
