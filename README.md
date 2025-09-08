@@ -7,6 +7,12 @@ ICS supports both single-image and bulk parallel processing via Step Functions' 
 
 ---
 
+## 🏗️ Solution Architecture
+
+
+
+---
+
 ## ❗ Problem Statement
 Organizations often need to process and classify large volumes of images in real time. Traditional pipelines are often rigid, hard to monitor, and expensive to scale. Without automated error detection and confidence filtering, low-quality predictions can propagate downstream, affecting business decisions and user experience.
 
@@ -20,6 +26,42 @@ ICS solves the challenge of deploying a production-grade image classification pi
 - **Maintainable**: Modular design with clear separation of concerns.
 
 This makes ICS ideal for use cases such as content moderation, product tagging, visual search, and automated metadata generation.
+
+---
+
+## 🎯 Target Customers and Use Cases
+
+The **Image Classification Service (ICS)** is designed for organizations that need scalable, reliable, and automated image classification with built‑in monitoring and alerting. Its flexibility makes it applicable across multiple industries. Below are some target customers and use cases useful for hitting the ground running:
+
+### Target Customers
+- **Banks & Financial Institutions**
+  - Security and compliance teams needing automated document and ID verification.
+  - Fraud detection units monitoring ATM or branch camera feeds for suspicious activity.
+- **Educational Institutions (Middle & Elementary Schools)**
+  - School administrators managing digital learning platforms with automated content moderation.
+  - Safety officers monitoring campus camera feeds for restricted items or unsafe situations.
+- **E‑commerce & Retail**
+  - Product catalog teams automating image tagging for faster product onboarding.
+  - Quality control teams detecting incorrect or low‑quality product images.
+- **Transportation & Logistics**
+  - Fleet managers classifying vehicle images for maintenance tracking.
+  - Automated damage detection for shipments.
+- **Healthcare Providers**
+  - Medical imaging teams classifying scans for triage or routing to specialists.
+  - Patient intake systems verifying uploaded documents or images.
+
+### Example Use Cases
+1. **Bank Security Monitoring**  
+   A bank integrates ICS with its security camera snapshots. Low‑confidence or anomalous classifications (e.g., detecting objects that should not be present) trigger an **SNS alert** to the security team in real time.
+
+2. **School Content Moderation**  
+   A middle school uses ICS to automatically scan and classify images uploaded to its learning management system. Any image flagged as inappropriate or below the confidence threshold is quarantined and an alert is sent to the school’s IT administrator.
+
+3. **E‑commerce Product Tagging**  
+   An online retailer uploads new product images to S3. ICS classifies them into categories (e.g., “bicycle” vs. “motorcycle”) and tags them automatically, reducing manual cataloging time.
+
+4. **Logistics Damage Detection**  
+   A shipping company photographs packages at each checkpoint. ICS classifies the images and flags any that appear damaged, sending alerts to operations for immediate action.
 
 ---
 
