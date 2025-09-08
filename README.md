@@ -109,7 +109,7 @@ The **Image Classification Service (ICS)** is designed for organizations that ne
 ![alt text](step-function-execution-success-sns-setup-bulk-items.png)
 
 ### Failed Execution
-![failure execution](step-function-execution-failure-sns-notification-bulk-items.png)
+![failed execution with notification](step-function-execution-failure-sns-notification-bulk-items.png)
 
 ### Inference Example
 ![Inference](inference-viz.png)
