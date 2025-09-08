@@ -1,0 +1,76 @@
+{
+  "Comment": "Scones Unlimited Image Classification Workflow (JSONPath, fan-out version)",
+  "StartAt": "ProcessImages",
+  "States": {
+    "ProcessImages": {
+      "Type": "Map",
+      "ItemsPath": "$.images",
+      "MaxConcurrency": 10,
+      "Iterator": {
+        "StartAt": "SerializeImageData",
+        "States": {
+          "SerializeImageData": {
+            "Type": "Task",
+            "Resource": "arn:aws:lambda:us-east-1:954976317440:function:serializeImageData",
+            "InputPath": "$",
+            "ResultPath": "$.body",
+            "Next": "ClassifyImage"
+          },
+          "ClassifyImage": {
+            "Type": "Task",
+            "Resource": "arn:aws:lambda:us-east-1:954976317440:function:classifyImage",
+            "InputPath": "$.body",
+            "ResultPath": "$.body",
+            "Retry": [
+              {
+                "ErrorEquals": [
+                  "Lambda.ServiceException",
+                  "Lambda.AWSLambdaException",
+                  "Lambda.SdkClientException",
+                  "Lambda.TooManyRequestsException"
+                ],
+                "IntervalSeconds": 1,
+                "MaxAttempts": 3,
+                "BackoffRate": 2
+              }
+            ],
+            "Next": "FilterLowConfidence"
+          },
+          "FilterLowConfidence": {
+            "Type": "Task",
+            "Resource": "arn:aws:lambda:us-east-1:954976317440:function:filterLowConfidence",
+            "InputPath": "$.body",
+            "ResultPath": "$.body",
+            "Catch": [
+              {
+                "ErrorEquals": [
+                  "States.ALL"
+                ],
+                "Comment": "Send error to SNS topic",
+                "Next": "SNS Publish"
+              }
+            ],
+            "End": true
+          },
+          "SNS Publish": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::sns:publish",
+            "Parameters": {
+              "TopicArn": "arn:aws:sns:us-east-1:954976317440:StepFunctionFailures",
+              "Message": {
+                "ErrorMessage.$": "$"
+              }
+            },
+            "Next": "FailExecution"
+          },
+          "FailExecution": {
+            "Type": "Fail",
+            "Error": "WorkflowError",
+            "Cause": "Function failed after sending SNS notification"
+          }
+        }
+      },
+      "End": true
+    }
+  }
+}
